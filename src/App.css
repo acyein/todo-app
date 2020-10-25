@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap');
 
+:root {
+  --heading-font: 'Raleway', sans-serif;
+  --main-font: 'Open Sans', sans-serif;
+}
+
 html {
   background: #ad5389; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -20,7 +25,7 @@ html {
   align-items: center;
   height: 100vh;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--main-font);
 }
 
 .card {
@@ -54,7 +59,7 @@ html {
   height: 13%;
   letter-spacing: 1px;
   position: absolute;
-  top: 11%;
+  top: 10%;
   z-index: 1;
   transition: all 0.4s ease-in-out;
   box-shadow: 0 0 12px 2px rgba(15, 15, 15, 0.2);
@@ -62,7 +67,7 @@ html {
 }
 
 .right {
-  right: -28%;
+  right: -30%;
   align-items: flex-end;
 }
 
@@ -71,7 +76,7 @@ html {
 }
 
 .left {
-  right: 28%;
+  right: 30%;
   align-items: flex-start;
 }
 
@@ -79,8 +84,10 @@ html {
   right: 32%;
 }
 
-.text {
+.tab-text {
   font-size: 18px;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 1.5px;
   color: #fff;
   margin-right: 1.8rem;
   margin-left: 1.8rem;
@@ -93,7 +100,7 @@ html {
   height: 2.8rem;
   font-size: 12px;
   font-family: 'Raleway', sans-serif;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   margin-top: 3.5rem;
   border: none;
   border-radius: 50px;

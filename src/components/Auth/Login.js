@@ -1,5 +1,5 @@
 import React from 'react';
-import { HiUserCircle, HiLockOpen } from "react-icons/hi";
+import { HiAtSymbol, HiLockOpen } from 'react-icons/hi';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -14,26 +14,28 @@ export class Login extends React.Component {
 
         <form action="">
           <div className="form-group">
-            <label htmlFor="username" aria-labelledby="username">
-            </label>
+            <label htmlFor="email" aria-labelledby="email"></label>
             <input
               className="form-control"
-              type="text"
-              name="username"
-              placeholder="Username"
+              type="email"
+              name="email"
+              placeholder="Email"
             />
-            <i><HiUserCircle /></i>
+            <i>
+              <HiAtSymbol />
+            </i>
           </div>
           <div className="form-group">
-            <label htmlFor="password" aria-labelledby="password">
-            </label>
+            <label htmlFor="password" aria-labelledby="password"></label>
             <input
               className="form-control"
               type="password"
               name="password"
               placeholder="Password"
             />
-            <i><HiLockOpen /></i>
+            <i>
+              <HiLockOpen />
+            </i>
           </div>
           <button type="button" className="btn">
             LOGIN

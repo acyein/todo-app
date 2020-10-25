@@ -1,7 +1,7 @@
 import React from 'react';
-import { HiUserCircle, HiAtSymbol, HiLockOpen } from "react-icons/hi";
+import { HiUserCircle, HiAtSymbol, HiLockOpen } from 'react-icons/hi';
 
-export class Register extends React.Component {
+export class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -14,37 +14,40 @@ export class Register extends React.Component {
 
         <form action="">
           <div className="form-group">
-            <label htmlFor="username" aria-labelledby="username">
-            </label>
+            <label htmlFor="username" aria-labelledby="username"></label>
             <input
               className="form-control"
               type="text"
               name="username"
               placeholder="Username"
             />
-            <i><HiUserCircle /></i>
+            <i>
+              <HiUserCircle />
+            </i>
           </div>
           <div className="form-group">
-            <label htmlFor="email" aria-labelledby="email">
-            </label>
+            <label htmlFor="email" aria-labelledby="email"></label>
             <input
               className="form-control"
               type="email"
               name="email"
               placeholder="Email"
             />
-            <i><HiAtSymbol /></i>
+            <i>
+              <HiAtSymbol />
+            </i>
           </div>
           <div className="form-group">
-            <label htmlFor="password" aria-labelledby="password">
-            </label>
+            <label htmlFor="password" aria-labelledby="password"></label>
             <input
               className="form-control"
               type="password"
               name="password"
               placeholder="Password"
             />
-            <i><HiLockOpen /></i>
+            <i>
+              <HiLockOpen />
+            </i>
           </div>
           <button type="button" className="btn">
             SIGN UP

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Login, Register } from './components/Auth';
+import { Login, Signup } from './components/Auth';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,22 +10,22 @@ class App extends React.Component {
     };
   }
 
-  // Event handlers
   componentDidMount() {
-    document.title = 'Login | To-Do';
+    document.title = 'Login | To-Do App'; // Set page title to Login
     this.rightSide.classList.add('right'); // Add .right by default
   }
-
+  
+  // Event handlers
   changeState() {
     const { isLoginActive } = this.state;
-    // Activate left tab
     if (isLoginActive) {
-      document.title = 'Register';
+      document.title = 'Register | To-Do App';
+      // Activate left tab
       this.rightSide.classList.remove('right');
       this.rightSide.classList.add('left');
-    } else { 
+    } else {
+      document.title = 'Login | To-Do App';
       // Activate right tab
-      document.title = 'Login';
       this.rightSide.classList.remove('left');
       this.rightSide.classList.add('right');
     }
@@ -47,7 +47,7 @@ class App extends React.Component {
               <Login containerRef={ref => (this.container = ref)} />
             )}
             {!isLoginActive && (
-              <Register containerRef={ref => (this.tabText = ref)} />
+              <Signup containerRef={ref => (this.tabText = ref)} />
             )}
           </div>
           <RightSide
@@ -69,8 +69,8 @@ const RightSide = props => {
       ref={props.containerRef}
       onClick={props.onClick}
     >
-      <div className="inner-container">
-        <div className="text">{props.tabText}</div>
+      <div className="tab-container">
+        <span className="tab-text">{props.tabText}</span>
       </div>
     </div>
   );
