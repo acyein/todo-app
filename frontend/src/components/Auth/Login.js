@@ -1,5 +1,6 @@
 import React from 'react';
-import { HiAtSymbol, HiLockOpen } from 'react-icons/hi';
+import { HiMail, HiLockOpen } from 'react-icons/hi';
+import loginImage from './undraw_enter_uhqk.svg';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -10,37 +11,41 @@ export class Login extends React.Component {
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <h1>LOGIN</h1>
-
         <form action="">
+          <h1>Login</h1>
           <div className="form-group">
             <label htmlFor="email" aria-labelledby="email"></label>
-            <input
-              className="form-control"
-              type="email"
-              name="email"
-              placeholder="Email"
-            />
-            <i>
-              <HiAtSymbol />
-            </i>
+            <div className="input-container">
+              <i>
+                <HiMail />
+              </i>
+              <input
+                className="form-control"
+                type="email"
+                name="email"
+                placeholder="Email"
+              />
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="password" aria-labelledby="password"></label>
-            <input
-              className="form-control"
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-            <i>
-              <HiLockOpen />
-            </i>
+            <div className="input-container">
+              <i>
+                <HiLockOpen />
+              </i>
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
           </div>
           <button type="button" className="btn">
-            LOGIN
+            Login
           </button>
         </form>
+        <img src={loginImage} alt="" />
       </div>
     );
   }

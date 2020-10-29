@@ -1,49 +1,75 @@
 .base-container {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 74%;
+  height: 100%;
   padding: 0 2rem;
   color: var(--dark-color);
 }
 
 h1 {
-  margin: 0;
-  letter-spacing: 1px;
-  font-family: 'Raleway', sans-serif;
+  margin: 0 0 2rem;
+  font-size: 36px;
+  text-align: left;
+  font-family: var(--primary-font);
+}
+
+form {
+  width: 40%;
 }
 
 .form-group {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  border-bottom: 1.5px solid #666;
+  align-items: center;
+  width: 100%;
+  margin-top: 1.2rem;
   transition: all .25s ease-in-out;
 }
 
-/* border-color: #ad5389; */
-
-.form-group i {
-  height: min-content;
-  padding: .5rem 1rem;
+.form-group:focus {
+  border: 1.5px solid var(--primary-color);
 }
 
+/* Form input container */
+.form-group .input-container {
+  width: 100%;
+}
+
+/* Icons */
+.form-group i {
+  position: absolute;
+  padding: .3rem .1rem;
+}
+/* top right bottom left */
 .form-group i > svg {
   width: 22px;
   height: 22px;
+  margin: .4rem .2rem;
 }
 
+/* Form inputs */
 .form-group .form-control {
-  width: 12rem;
-  margin-top: 2rem;
-  padding: .5rem 1rem;
-  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 3.5rem;
+  height: 2.8rem;
+  font-size: 14px;
   font-family: inherit;
-  border: none;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid var(--medium-dark-color);
   background-color: inherit;
+  transition: all .15s ease-in-out;
 }
 
 .form-group .form-control:focus {
   outline: none;
+  border-color: var(--dark-color);
+}
+.form-group .form-control:focus::placeholder {
+  color: var(--dark-color);
 }
