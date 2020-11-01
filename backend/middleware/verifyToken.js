@@ -1,16 +1,25 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
-// Verify token
-module.exports = (req, res, next) => {
-    const token = req.header('auth-token');
-    // If user does not pass token in headers, they're blocked from accessing the page
-    if(!token) return res.status(401).send('Access denied');
-
-    try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = verified;
-        next();
-    } catch(err) {
-        res.status(400).send('Invalid token');
-    }
+// Checks if token exists and verifies it if it does exists
+exports.verifyToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  if (authHeader) {
+    let token = authHeader && authHeader.split(' ')[1];
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, result) => {
+      if (err) {
+        return res.status(401).json({
+          error: true,
+          message: 'Invalid user',
+        });
+      } else {
+        console.log('Result: ', result);
+        const user = User.findById(result._id);
+        if (user) {
+          req.user = user;
+          next();
+        }
+      }
+    });
+  }
 };
