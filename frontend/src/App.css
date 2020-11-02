@@ -11,14 +11,6 @@
 html {
   box-sizing: border-box;
   background-color: #f8f8f8;
-}
-
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
   font-family: var(--primary-font);
 }
 

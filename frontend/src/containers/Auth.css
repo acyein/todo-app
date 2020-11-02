@@ -1,3 +1,12 @@
+.Auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  font-family: var(--primary-font);
+}
+
 .card {
   display: flex;
   justify-content: center;

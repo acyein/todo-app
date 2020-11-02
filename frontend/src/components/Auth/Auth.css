@@ -8,15 +8,14 @@
   color: var(--dark-color);
 }
 
-h1 {
+.auth-heading {
   margin: 0 0 2rem;
   font-size: 36px;
   text-align: left;
-  font-family: var(--primary-font);
 }
 
 /* Form */
-form {
+.auth-form {
   width: 40%;
 }
 

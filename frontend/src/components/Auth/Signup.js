@@ -1,20 +1,74 @@
 import React from 'react';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+// import * as yup from 'yup';
+
 import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
 import signupImage from './undraw_dreamer_gxxi.svg';
+
+// const validationSchema = yup.object().shape({
+//   firstName: yup.string().max(100).required(),
+//   lastName: yup
+//     .string()
+//     .max(100)
+//     .trim()
+//     .required(),
+//   email: yup.string().email().required(),
+//   password: yup.string().min(8).required(),
+// });
 
 export class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      isSignedUp: false
+    };
   }
 
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handlePostSignup = event => {
+    event.preventDefault();
+    console.log(this.state);
+
+    const userData = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+    };
+
+    axios
+      .post('http://localhost:8000/signup', userData, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.setState({ isSignedUp: true });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
+    if (this.state.isSignedUp) {
+      return <Redirect to='/todo'/>;  
+    }
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <img src={signupImage} alt="" />
 
-        <form action="">
-          <h1>Sign Up</h1>
+        <form className="auth-form" onSubmit={this.handlePostSignup}>
+          <h1 className="auth-heading">Sign Up</h1>
           <div className="form-group">
             <label htmlFor="firstName" aria-labelledby="firstName"></label>
             <div className="input-container">
@@ -25,7 +79,10 @@ export class Signup extends React.Component {
                 className="form-control"
                 type="text"
                 name="firstName"
+                value={this.state.firstName}
+                onChange={this.handleInputChange}
                 placeholder="First Name"
+                required
               />
             </div>
           </div>
@@ -39,7 +96,10 @@ export class Signup extends React.Component {
                 className="form-control"
                 type="text"
                 name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleInputChange}
                 placeholder="Last Name"
+                required
               />
             </div>
           </div>
@@ -53,7 +113,10 @@ export class Signup extends React.Component {
                 className="form-control"
                 type="email"
                 name="email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
                 placeholder="Email"
+                required
               />
             </div>
           </div>
@@ -67,13 +130,22 @@ export class Signup extends React.Component {
                 className="form-control"
                 type="password"
                 name="password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
                 placeholder="Password"
+                required
               />
             </div>
           </div>
-          <button type="button" className="btn">
+          {/* <Link to="/todo"> */}
+          <button
+            type="submit"
+            className="btn"
+            onClick={this.handlePostSignup}
+          >
             Sign Up
           </button>
+          {/* </Link> */}
         </form>
       </div>
     );

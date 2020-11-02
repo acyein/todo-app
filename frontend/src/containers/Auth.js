@@ -10,7 +10,6 @@ export class Auth extends React.Component {
       isLoginActive: true,
     };
   }
-
   componentDidMount() {
     document.title = 'Login | To-Do App'; // Set page title to Login
     this.rightSide.classList.add('right'); // Add .right by default
@@ -41,7 +40,7 @@ export class Auth extends React.Component {
     const tabText = isLoginActive ? 'Sign Up' : 'Login';
 
     return (
-      <div className="App">
+      <div className="Auth">
         <div className="card">
           <div className="container">
             {isLoginActive && (
