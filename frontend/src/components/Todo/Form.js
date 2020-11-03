@@ -5,8 +5,11 @@ const Form = ({setInputText, setDescriptionText, todos, setTodos, inputText, des
   const inputTextHandler = (e) =>{
     //console.log(e.target.value);
     setInputText(e.target.value);
-    setDescriptionText(e.target.value);
   };
+
+  const inputDescriptionHandler = (e) => {
+    setDescriptionText(e.target.value);
+  }
 
   const submitTodoHandler = (e)=>{
     e.preventDefault();
@@ -30,20 +33,21 @@ const Form = ({setInputText, setDescriptionText, todos, setTodos, inputText, des
       onChange={inputTextHandler} 
       type="text" 
       className="todo-input"
-      placeholder="Subject"
+      placeholder="Task"
       />
       <input 
       value={descriptionText} 
-      onChange={inputTextHandler} 
+      onChange={inputDescriptionHandler} 
       type="text" 
       className="todo-input"
       placeholder="Description"
       />
-      <button onClick={submitTodoHandler} className="todo-button" type="submit">
-        <i className= "fas fa-plus-square"></i>
+      <button onClick={submitTodoHandler} className="plus-button" type="submit">
+        <i className= "fas fa-plus fa-2x"></i>
       </button>
-      <div className="select">
+      <div className="select-container">
         <select onChange={statusHandler} name="todos" className="filter-todo">
+          <option value="" disabled selected>Filter by</option>
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>

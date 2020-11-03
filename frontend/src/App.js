@@ -10,7 +10,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/todo" component={Todo} />
           <Route path="/login" component={Auth} />
-          <Route path="/" exact component={Auth} />
+          <Route path="/" exact component={Todo} />
         </Switch>
       </BrowserRouter>
     );

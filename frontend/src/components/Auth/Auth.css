@@ -10,7 +10,7 @@
 
 .auth-heading {
   margin: 0 0 2rem;
-  font-size: 36px;
+  font-size: var(--text-xl);
   text-align: left;
 }
 
@@ -55,7 +55,7 @@
   width: 100%;
   padding-left: 2.8rem;
   height: 2.8rem;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-family: inherit;
   border-top: 0;
   border-left: 0;

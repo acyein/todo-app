@@ -4,8 +4,6 @@ import instance from '../../axios';
 
 import './Auth.css';
 import { HiMail, HiLockOpen } from 'react-icons/hi';
-import loginImage from './undraw_enter_uhqk.svg';
-
 
 class Login extends React.Component {
   constructor(props) {
@@ -91,7 +89,7 @@ class Login extends React.Component {
             Login
           </button>
         </form>
-        <img src={loginImage} alt="" />
+        <img src="/undraw_enter_uhqk.svg" alt="illustration" />
       </div>
     );
   }

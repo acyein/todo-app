@@ -6,7 +6,6 @@ import instance from '../../axios';
 
 import './Auth.css';
 import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
-import signupImage from './undraw_dreamer_gxxi.svg';
 
 // const validationSchema = yup.object().shape({
 //   firstName: yup.string().max(100).required(),
@@ -65,7 +64,7 @@ class Signup extends React.Component {
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <img src={signupImage} alt="" />
+        <img src="/undraw_dreamer_gxxi.svg" alt="illustration" />
 
         <form className="auth-form" onSubmit={this.handleFormSubmit}>
           <h1 className="auth-heading">Sign Up</h1>

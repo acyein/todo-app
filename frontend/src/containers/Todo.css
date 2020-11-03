@@ -1,99 +1,152 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding-right: 2rem;
+  list-style-type: none;
 }
 
-.todo-body {
-  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-  color: white;
-  min-height: 100vh;
+.nav li {
+  padding: 1rem;
 }
 
-.todo-heading {
-  font-size: 2rem;
+.nav-link {
+  color: var(--dark-color);
+  text-decoration: none;
+  transition: all 0.1s ease;
 }
 
-.todo-heading,
+.nav-link:hover {
+  color: #777;
+}
+
+/* Logo */
+.todo-header img {
+  width: 2rem;
+  margin: 0 1rem;
+}
+
+/* App name */
+.todo-header .heading {
+  font-size: var(--text-xl);
+}
+
+.todo-header,
 .todo-form {
-  min-height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 20vh;
 }
 
-.todo-form input,
-.todo-form button {
+/* Form Input */
+.todo-input {
+  width: 30rem;
+  margin: 0 1rem;
   padding: 0.8rem 1rem;
-  font-size: 1.5rem;
   border: none;
-  background: white;
+  font-size: var(--text-md);
+  background: #fff;
+  box-shadow:  0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
 }
 
-.todo-form input:focus {
-  outline: none;
+.todo-input:first-child {
+  width: 18rem;
+  font-weight: bold;
 }
 
-.todo-form button {
-  color: #ff6f47;
-  background: #f7fffe;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.todo-input:focus::placeholder {
+  color: var(--dark-color);
 }
 
-.todo-form button:hover {
-  background: #ff6f47;
-  color: white;
-}
-
+/* Todo list container */
 .todo-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Todo list */
 .todo-list {
-  min-width: 30%;
+  width: 50vw;
   list-style: none;
 }
 
 .todo {
-  margin: 0.5rem;
-  background: white;
-  font-size: 1.5rem;
-  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 1s ease;
+  margin: 0.5rem auto;
+  font-size: inherit;
+  color: var(--dark-color);
+  background: #fff;
+  box-shadow:  0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  transition: all 1s ease-in-out;
 }
 
-.filter-todo {
-  padding: 1rem;
-}
+/* .todo label {
+  font-weight: bold;
+} */
 
-.todo li {
+/* Todo text */
+.todo-subject {
+  padding: 0 1.2rem;
   flex: 1;
+  font-weight: bold;
 }
 
-.trash-btn,
-.complete-btn {
-  background: #ff6f47;
-  color: white;
+.todo-desc {
+  font-style: italic;
+}
+
+/* Buttons */
+.todo-input:focus,
+.plus-button:focus,
+.trash-btn:focus,
+.complete-btn:focus {
+  outline: none;
+}
+
+.plus-button {
+  margin-right: 1rem;
   border: none;
-  padding: 1rem;
+  color: var(--primary-color);
+  background: inherit;
   cursor: pointer;
-  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.plus-button:hover {
+  color: var(--secondary-color);
+}
+
+.complete-btn,
+.trash-btn {
+  padding: 0.8rem 1rem;
+  border: none;
+  font-size: inherit;
+  background: inherit;
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.complete-btn:hover,
+.trash-btn:hover {
+  opacity: 1;
 }
 
 .complete-btn {
-  background: rgb(11, 212, 162);
+  color: var(--primary-color);
 }
 
-.todo-item {
-  padding: 0rem 0.5rem;
+.trash-btn {
+  color: var(--danger-color);
 }
 
+/* Icons */
 .fa-trash,
 .fa-check {
   pointer-events: none;
@@ -121,35 +174,42 @@ select {
   background-image: none;
 }
 
-/* Custom Select */
-.select {
+/* Dropdown menu */
+.select-container {
   margin: 1rem;
   position: relative;
   overflow: hidden;
 }
 
-select {
-  color: #ff6f47;
-  font-family: "Poppins", sans-serif;
-  cursor: pointer;
-  width: 12rem;
-}
-
-/* Arrow */
-.select::after {
+/* Arrow symbol */
+.select-container::after {
   content: "\25BC";
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1rem;
-  background: #ff6f47;
+  padding: 0.8rem 1.4rem 0.8rem 1rem;
+  /* background: var(--danger-color); */
   cursor: pointer;
   pointer-events: none;
 }
 
-/* Transition */
-/*
-.select:hover::after {
-  transform: scale(1.5);
+.filter-todo {
+  width: 12rem;
+  padding: .8rem 2rem;
+  font-size: var(--text-md);
+  border-radius: 30px;
+  color: #fff;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
-*/
+
+.filter-todo:hover {
+  background-color: var(--secondary-color);
+}
+
+select option {
+  color: var(--dark-color);
+  background-color: #fff;
+  outline: none;
+}

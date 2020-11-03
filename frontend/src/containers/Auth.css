@@ -66,7 +66,7 @@
 }
 
 .tab-text {
-  font-size: 16px;
+  font-size: var(--text-md);
   color: #fff;
   margin-right: 1.8rem;
   margin-left: 1.8rem;

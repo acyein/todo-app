@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../App.css';
 import './Auth.css';
 import Login from '../components/Auth/Login';
