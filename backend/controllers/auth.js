@@ -27,8 +27,9 @@ exports.signupUser = async (req, res) => {
   try {
     const savedUser = await user.save();
     // res.send(savedUser);
+    console.log(savedUser);
     res.json({
-      message: `Succcess signup! Welcome, ${user.firstName}`,
+      message: `Succcessful signup! Welcome, ${savedUser.firstName}`,
       info: savedUser,
     });
   } catch (err) {
@@ -53,7 +54,7 @@ exports.loginUser = async (req, res) => {
 
   // Create and assign a token
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24}); // Expires in 24 hours
-  res.header('Token', token).status(200).json({
+  res.header('Authorization', token).status(200).json({
     message: 'Sucessful login! Welcome back',
     token: token,
   });

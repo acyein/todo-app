@@ -7,13 +7,11 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        {/* <div className="App"> */}
-          <Switch>
-            <Route path="/todo" component={Todo} />
-            <Route path="/login" component={Auth} />
-            <Route path="/" exact component={Auth} />
-          </Switch>
-        {/* </div> */}
+        <Switch>
+          <Route path="/todo" component={Todo} />
+          <Route path="/login" component={Auth} />
+          <Route path="/" exact component={Auth} />
+        </Switch>
       </BrowserRouter>
     );
   }

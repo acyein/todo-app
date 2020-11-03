@@ -1,7 +1,10 @@
 import React from 'react';
+
 import '../App.css';
 import './Auth.css';
-import { Login, Signup, RightSide } from '../components/Auth';
+import Login from '../components/Auth/Login';
+import Signup from '../components/Auth/Signup';
+import RightSide from '../components/Auth/RightSide';
 
 export class Auth extends React.Component {
   constructor(props) {

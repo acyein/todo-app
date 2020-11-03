@@ -1,6 +1,7 @@
 import React from 'react';
+import './Auth.css';
 
-export const RightSide = props => {
+const RightSide = props => {
   return (
     <div
       className="right-side"
@@ -13,3 +14,5 @@ export const RightSide = props => {
     </div>
   );
 };
+
+export default RightSide;

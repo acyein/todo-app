@@ -12,7 +12,7 @@ const Form = ({setInputText, setDescriptionText, todos, setTodos, inputText, des
     e.preventDefault();
     setTodos([
       ...todos,
-      {text:inputText, text:descriptionText, completed:false, id:Math.random()*1000},
+      {text:inputText, desc:descriptionText, completed:false, id:Math.random()*1000},
     ]);
     setInputText('');   //reset to zero
     setDescriptionText('');

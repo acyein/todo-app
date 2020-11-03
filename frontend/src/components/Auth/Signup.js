@@ -1,8 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import instance from '../../axios';
+// import { useFormik } from 'formik';
 // import * as yup from 'yup';
 
+import './Auth.css';
 import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
 import signupImage from './undraw_dreamer_gxxi.svg';
 
@@ -17,7 +19,7 @@ import signupImage from './undraw_dreamer_gxxi.svg';
 //   password: yup.string().min(8).required(),
 // });
 
-export class Signup extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,9 +35,9 @@ export class Signup extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handlePostSignup = event => {
+  handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
 
     const userData = {
       firstName: this.state.firstName,
@@ -44,10 +46,8 @@ export class Signup extends React.Component {
       password: this.state.password,
     };
 
-    axios
-      .post('http://localhost:8000/signup', userData, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+    instance
+      .post('/signup', userData)
       .then(res => {
         console.log(res);
         if (res.status === 200) {
@@ -61,13 +61,13 @@ export class Signup extends React.Component {
 
   render() {
     if (this.state.isSignedUp) {
-      return <Redirect to='/todo'/>;  
+      return <Redirect to='/todo'/>;
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <img src={signupImage} alt="" />
 
-        <form className="auth-form" onSubmit={this.handlePostSignup}>
+        <form className="auth-form" onSubmit={this.handleFormSubmit}>
           <h1 className="auth-heading">Sign Up</h1>
           <div className="form-group">
             <label htmlFor="firstName" aria-labelledby="firstName"></label>
@@ -141,7 +141,7 @@ export class Signup extends React.Component {
           <button
             type="submit"
             className="btn"
-            onClick={this.handlePostSignup}
+            onClick={this.handleFormSubmit}
           >
             Sign Up
           </button>
@@ -151,3 +151,5 @@ export class Signup extends React.Component {
     );
   }
 }
+
+export default Signup;

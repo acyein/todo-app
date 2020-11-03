@@ -1,61 +1,57 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { Redirect, withRouter } from 'react-router-dom';
+import instance from '../../axios';
 
+import './Auth.css';
 import { HiMail, HiLockOpen } from 'react-icons/hi';
 import loginImage from './undraw_enter_uhqk.svg';
-import { setUserSession } from '../../utils/Common';
 
-export class Login extends React.Component {
+
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      isLoggedIn: false,
     };
   }
-
+  
   handleInputChange = event => {
     // name attribute
     this.setState({ [event.target.name]: event.target.value });
   };
-
-  handlePostLogin = event => {
+  
+  handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
+
     const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-    axios
-      .post('http://localhost:8000/login', userData, {headers: {'Content-Type': 'application/json'}})
-      .then(res => {
-        console.log(res);
-        setUserSession(res.data.token, res.data.user);
-        this.props.history.push('/todo');
-      })
-      .catch(err => {
-        console.log(err);
-        if (err.res.status === 401) return err.res.data.message;
-      });
+    
+    instance
+    .post('/login', userData)
+    .then(res => {
+      console.log(res);
+      if (res.status === 200) {
+        this.props.history.push('/login');
+        this.setState({ isLoggedIn: true });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
   };
-
-  // componentDidMount() {
-  //   axios.get('https://jsonplaceholder.typicode.com/users')
-  //     .then(res => {
-  //       this.setState({users: res.date});
-  //       // console.log(res);
-  //     });
-  // }
-
+  
   render() {
-    // const users = this.state.users.map(user => {
-    //   return
-    // });
-
+    if (this.state.isLoggedIn) {
+      return <Redirect to="/todo" />;
+    }
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <form className="auth-form" onSubmit={this.handlePostLogin}>
+        <form className="auth-form" onSubmit={this.handleFormSubmit}>
           <h1 className="auth-heading">Login</h1>
           <div className="form-group">
             <label htmlFor="email" aria-labelledby="email"></label>
@@ -91,18 +87,14 @@ export class Login extends React.Component {
               />
             </div>
           </div>
-          {/* <Link to="/todo"> */}
-            <button
-              type="submit"
-              className="btn"
-              // onClick={this.handlePostLogin}
-            >
-              Login
-            </button>
-          {/* </Link> */}
+          <button type="submit" className="btn" onClick={this.handleFormSubmit}>
+            Login
+          </button>
         </form>
         <img src={loginImage} alt="" />
       </div>
     );
   }
 }
+
+export default withRouter(Login);
