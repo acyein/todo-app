@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+// import instance from '../axios';
 import '../App.css';
 import './Todo.css';
 //importing component
@@ -8,8 +9,10 @@ import TodoList from '../components/Todo/Todolist';
 
 export function Todo() {
   //state stuff
-  const [inputText, setInputText] = useState('');
-  const [descriptionText, setDescriptionText] = useState('');
+  const [subject, setSubject] = useState('');
+  const [description, setDescription] = useState('');
+  const [deadline, setDeadline] = useState('');
+  const [search, setSearch] = useState('');
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState('all');
   const [filteredTodos, setFilteredTodos] = useState([]);
@@ -36,6 +39,7 @@ export function Todo() {
         setFilteredTodos(todos.filter(todo => todo.completed === false));
         break;
       default:
+        // default is 'all'
         setFilteredTodos(todos);
         break;
     }
@@ -57,29 +61,37 @@ export function Todo() {
 
   return (
     <div className="todo-body">
-      <ul className="nav">
-        <li>
-          <NavLink to="/login" className="nav-link">
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup" className="nav-link">
-            Signup
-          </NavLink>
-        </li>
-      </ul>
-      <header className="todo-header">
-        <img className="logo" src="/logo.svg" alt="logo" />
-        <h1 className="todo-heading">Tick Me</h1>
-      </header>
+      <nav className="navbar">
+        <div className="navbar-header">
+          <Link to="/todos" className="navbar-brand nav-link">
+            <img className="logo" src="/logo.svg" alt="logo" />
+            Tick Me
+          </Link>
+        </div>
+        <ul className="nav">
+          <li>
+            <NavLink to="/login" className="nav-link">
+              Login
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup" className="nav-link">
+              Signup
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
       <Form
-        inputText={inputText}
-        descriptionText={descriptionText}
+        subject={subject}
+        setSubject={setSubject}
+        description={description}
+        setDescription={setDescription}
+        deadline={deadline}
+        setDeadline={setDeadline}
+        search={search}
+        setSearch={setSearch}
         todos={todos}
         setTodos={setTodos}
-        setInputText={setInputText}
-        setDescriptionText={setDescriptionText}
         setStatus={setStatus}
       />
 

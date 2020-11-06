@@ -1,8 +1,8 @@
-.Auth {
+.auth-body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 85vh;
   text-align: center;
   font-family: var(--primary-font);
 }

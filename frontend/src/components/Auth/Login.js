@@ -14,12 +14,12 @@ class Login extends React.Component {
       isLoggedIn: false,
     };
   }
-  
+
   handleInputChange = event => {
     // name attribute
     this.setState({ [event.target.name]: event.target.value });
   };
-  
+
   handleFormSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
@@ -28,24 +28,25 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password,
     };
-    
+
     instance
-    .post('/login', userData)
-    .then(res => {
-      console.log(res);
-      if (res.status === 200) {
-        this.props.history.push('/login');
-        this.setState({ isLoggedIn: true });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+      .post('/login', userData)
+      .then(res => {
+        if (res.status === 200) {
+          this.props.history.push('/login');
+          this.setState({ isLoggedIn: true });
+          localStorage.setItem('token', res.data.token)
+          console.log(res.config.headers);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
-  
+
   render() {
-    if (this.state.isLoggedIn) {
-      return <Redirect to="/todo" />;
+    if (this.state.isLoggedIn === true) {
+      return <Redirect to="/todos" />;
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>

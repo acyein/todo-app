@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user');
+const User = require('../models/User');
 const {signupValidation, loginValidation} = require('../models/validation');
 
 // Signup user
@@ -18,19 +18,19 @@ exports.signupUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   // Create a new user
-  const user = new User({
+  const newUser = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     password: hashedPassword
   });
   try {
-    const savedUser = await user.save();
+    const savedUser = await newUser.save();
     // res.send(savedUser);
     console.log(savedUser);
     res.json({
       message: `Succcessful signup! Welcome, ${savedUser.firstName}`,
-      info: savedUser,
+      user: savedUser,
     });
   } catch (err) {
     res.status(400).send(err);
@@ -53,9 +53,10 @@ exports.loginUser = async (req, res) => {
   if (!validPassword) return res.status(400).send('Incorrect password');
 
   // Create and assign a token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24}); // Expires in 24 hours
+  const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24}); // Expires in 24 hours
   res.header('Authorization', token).status(200).json({
     message: 'Sucessful login! Welcome back',
+    user: user,
     token: token,
   });
 };

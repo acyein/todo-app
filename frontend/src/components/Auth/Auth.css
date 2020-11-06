@@ -69,6 +69,7 @@
   outline: none;
   border-color: var(--dark-color);
 }
+
 .form-group .form-control:focus::placeholder {
   color: var(--dark-color);
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Todo = ({ text, desc, todo, todos, setTodos }) => {
+const Todo = ({ subject, description, deadline, todo, todos, setTodos }) => {
   //events
   const deleteHandler = () => {
     setTodos(todos.filter(el => el.id !== todo.id));
@@ -24,13 +24,14 @@ const Todo = ({ text, desc, todo, todos, setTodos }) => {
   return (
     <div className="todo">
       <li>
-        {/* <label>Task</label> */}
         <span className={`todo-subject ${todo.completed ? 'completed' : ''}`}>
-          {text}
+          {subject}
         </span>
-        {/* <label>Description</label> */}
-        <span className={`todo-desc ${todo.completed ? 'completed' : ''}`}>
-          {desc}
+        <span className={`todo-description ${todo.completed ? 'completed' : ''}`}>
+          {description}
+        </span>
+        <span className={`todo-deadline ${todo.completed ? 'completed' : ''}`}>
+          {deadline}
         </span>
       </li>
       <div className="todo-list-buttons">

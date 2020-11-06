@@ -7,6 +7,7 @@ dotenv.config();
 
 // Import routes
 const authRoutes = require('./routes/auth');
+const todoRoutes = require('./routes/todo');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', authRoutes);
+app.use('/todos', todoRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);

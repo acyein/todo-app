@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+
 import '../App.css';
 import './Auth.css';
 import Login from '../components/Auth/Login';
@@ -13,19 +15,21 @@ export class Auth extends React.Component {
     };
   }
   componentDidMount() {
-    document.title = 'Login | To-Do App'; // Set page title to Login
+    document.title = 'Login | Tick Me'; // Set page title to Login
     this.rightSide.classList.add('right'); // Add .right by default
   }
 
   handleTabChange() {
     const { isLoginActive } = this.state;
     if (isLoginActive) {
-      document.title = 'Sign Up | To-Do App';
+      document.title = 'Sign Up | Tick Me';
+      this.props.history.push('/signup');
       // Activate left tab
       this.rightSide.classList.remove('right');
       this.rightSide.classList.add('left');
     } else {
-      document.title = 'Login | To-Do App';
+      document.title = 'Login | Tick Me';
+      this.props.history.push('/login');
       // Activate right tab
       this.rightSide.classList.remove('left');
       this.rightSide.classList.add('right');
@@ -43,21 +47,38 @@ export class Auth extends React.Component {
 
     return (
       <div className="Auth">
-        <div className="card">
-          <div className="container">
-            {isLoginActive && (
-              <Login containerRef={ref => (this.container = ref)} />
-            )}
-            {!isLoginActive && (
-              <Signup containerRef={ref => (this.tabText = ref)} />
-            )}
+        <nav className="navbar">
+          <div className="navbar-header">
+            <Link to="/todos" className="navbar-brand nav-link">
+              <img className="logo" src="/logo.svg" alt="logo" />
+              Tick Me
+            </Link>
           </div>
-          <RightSide
-            tabText={tabText}
-            currentActive={currentActive}
-            containerRef={ref => (this.rightSide = ref)}
-            onClick={this.handleTabChange.bind(this)}
-          />
+          <ul className="nav">
+            <li>
+              <NavLink to="/todos" className="nav-link">
+                Get Started
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <div className="auth-body">
+          <div className="card">
+            <div className="container">
+              {isLoginActive && (
+                <Login containerRef={ref => (this.container = ref)} />
+              )}
+              {!isLoginActive && (
+                <Signup containerRef={ref => (this.tabText = ref)} />
+              )}
+            </div>
+            <RightSide
+              tabText={tabText}
+              currentActive={currentActive}
+              containerRef={ref => (this.rightSide = ref)}
+              onClick={this.handleTabChange.bind(this)}
+            />
+          </div>
         </div>
       </div>
     );

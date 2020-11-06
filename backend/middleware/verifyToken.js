@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/User');
 
 // Checks if token exists and verifies it if it does exists
 exports.verifyToken = (req, res, next) => {
@@ -13,7 +13,7 @@ exports.verifyToken = (req, res, next) => {
           message: 'Invalid user',
         });
       } else {
-        console.log('Result: ', result);
+        // console.log(result);
         const user = User.findById(result._id);
         if (user) {
           req.user = user;

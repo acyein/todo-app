@@ -8,8 +8,9 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/todo" component={Todo} />
+          <Route path="/todos" component={Todo} />
           <Route path="/login" component={Auth} />
+          <Route path="/signup" component={Auth} />
           <Route path="/" exact component={Todo} />
         </Switch>
       </BrowserRouter>

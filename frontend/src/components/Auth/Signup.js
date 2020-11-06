@@ -1,22 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import instance from '../../axios';
-// import { useFormik } from 'formik';
-// import * as yup from 'yup';
 
 import './Auth.css';
 import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
-
-// const validationSchema = yup.object().shape({
-//   firstName: yup.string().max(100).required(),
-//   lastName: yup
-//     .string()
-//     .max(100)
-//     .trim()
-//     .required(),
-//   email: yup.string().email().required(),
-//   password: yup.string().min(8).required(),
-// });
 
 class Signup extends React.Component {
   constructor(props) {
@@ -48,8 +35,9 @@ class Signup extends React.Component {
     instance
       .post('/signup', userData)
       .then(res => {
-        console.log(res);
+        console.log(res.config.headers);
         if (res.status === 200) {
+          this.props.history.push('/signup');
           this.setState({ isSignedUp: true });
         }
       })
@@ -60,7 +48,7 @@ class Signup extends React.Component {
 
   render() {
     if (this.state.isSignedUp) {
-      return <Redirect to='/todo'/>;
+      return <Redirect to='/todos'/>;
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>
@@ -151,4 +139,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
