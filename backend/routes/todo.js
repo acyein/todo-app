@@ -5,8 +5,11 @@ const { verifyToken } = require('../middleware/verifyToken');
 
 const todoController = require('../controllers/todo');
 
-router.post('/create', verifyToken, todoController.createTodo);
 router.get('/', verifyToken, todoController.getTodo);
-router.delete('/:todoId/complete', verifyToken, todoController.deleteTodo);
+router.post('/create', verifyToken, todoController.createTodo);
+router.delete('/:todoId/completed', verifyToken, todoController.deleteTodo);
+
+// router.put('', verifyToken, todoController.editTodo);
+// router.get('', verifyToken, todoController.searchTodo);
 
 module.exports = router;

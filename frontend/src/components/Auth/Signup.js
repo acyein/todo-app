@@ -48,7 +48,7 @@ class Signup extends React.Component {
 
   render() {
     if (this.state.isSignedUp) {
-      return <Redirect to='/todos'/>;
+      return <Redirect to='/login'/>;
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>

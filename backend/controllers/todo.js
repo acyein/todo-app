@@ -9,31 +9,38 @@ function generateAccessToken(userId) {
 
 // Get todos
 exports.getTodo = async (req, res) => {
-  const todos = await Todo.find();
-  if (!todos) return res.status(400).send('Cannot find todos');
+  try {
+    const todos = await Todo.find();
+    if (!todos) return res.status(400).send('Cannot find todos');
 
-  // await newTodo.populate('user', {path: 'user'})
-  // .execPopulate(function (err, todo) {
-  //   if (err) return handleError(err);
-  //   console.log(todo);
-  // });
-  
-  res.json({
-    todos: todos,
-  });
+    // await newTodo.populate('user') // Specify path and ...
+    // .execPopulate(function (err, todo) {
+    //   if (err) return handleError(err);
+    //   console.log(todo);
+    // });
+
+    res.json({
+      todos: todos,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.createTodo = async (req, res) => {
   const newTodo = new Todo({
     subject: req.body.subject,
     description: req.body.description,
-    deadline: req.body.deadline
+    deadline: req.body.deadline,
     // status = req.body.status
   });
   try {
     // const user = req.user;
+    // Push newTodo to todos array in users collection
+
+    // Save to db
     const savedTodo = await newTodo.save();
-    
+
     res.json({
       message: 'Added a todo',
       todo: savedTodo,
@@ -52,7 +59,8 @@ exports.deleteTodo = async (req, res) => {
     });
   } catch (err) {
     res.json({
-      message: 'Cannot find the todo',
+      message: 'Unable to find the todo',
+      error: err,
     });
   }
 };
