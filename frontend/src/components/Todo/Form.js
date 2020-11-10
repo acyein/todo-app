@@ -13,6 +13,8 @@ const Form = ({
   todos,
   setTodos,
   setStatus,
+  showSearchFilter,
+  setShowSearchFilter,
 }) => {
   const addSubjectHandler = e => {
     //console.log(e.target.value);
@@ -46,6 +48,7 @@ const Form = ({
         deadline: deadline,
         completed: false,
         search: search, // CHECK
+        showSearchFilter: false,
         id: Math.random() * 1000,
       },
     ]);
@@ -69,6 +72,7 @@ const Form = ({
     setDescription('');
     setDeadline('');
     setSearch('');
+    setShowSearchFilter(true);
   };
 
   return (
@@ -111,24 +115,31 @@ const Form = ({
         Add
         <i className="fas fa-plus plus-btn"></i>
       </button>
-      <div className="todo-form-group search-filter-container">
-        <input
-          value={search}
-          onChange={searchHandler}
-          type="text"
-          className="search-input"
-          placeholder="Search"
-        />
-        <div className="select-container">
-          <select onChange={statusHandler} name="todos" className="filter-todo">
-            <option value="">Filter by</option>
-
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="uncompleted">Uncompleted</option>
-          </select>
+      
+      {/* Show search and filter bars after form is submitted */}
+      {showSearchFilter ? (
+        <div className="todo-form-group search-filter-container">
+          <input
+            value={search}
+            onChange={searchHandler}
+            type="text"
+            className="search-input"
+            placeholder="Search"
+          />
+          <div className="select-container">
+            <select
+              onChange={statusHandler}
+              name="todos"
+              className="filter-todo"
+            >
+              <option value="">Show</option>
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="uncompleted">Uncompleted</option>
+            </select>
+          </div>
         </div>
-      </div>
+      ) : null}
     </form>
   );
 };

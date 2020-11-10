@@ -15,6 +15,7 @@ export function Todo() {
   const [search, setSearch] = useState('');
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState('all');
+  const [showSearchFilter, setShowSearchFilter] = useState(false);
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   //run ONCE when the app start
@@ -93,6 +94,8 @@ export function Todo() {
         todos={todos}
         setTodos={setTodos}
         setStatus={setStatus}
+        showSearchFilter={showSearchFilter}
+        setShowSearchFilter={setShowSearchFilter}
       />
 
       <TodoList

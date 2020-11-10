@@ -1,9 +1,34 @@
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-import instance from '../../axios';
+// import instance from '../../axios';
 
 import './Auth.css';
 import { HiMail, HiLockOpen } from 'react-icons/hi';
+
+const validEmailRegex = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
+
+const formValid = ({ isError, ...rest }) => {
+  let isValid = false;
+
+  Object.values(isError).forEach(value => {
+    if (value.length > 0) {
+      isValid = false;
+    } else {
+      isValid = true;
+    }
+  });
+
+  Object.values(rest).forEach(value => {
+    if (value === null) {
+      isValid = false;
+    } else {
+      isValid = true;
+    }
+  });
+
+  console.log(isValid);
+  return isValid;
+};
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,18 +36,44 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isError: {
+        email: '',
+        password: '',
+      },
       isLoggedIn: false,
     };
   }
 
   handleInputChange = event => {
-    // name attribute
-    this.setState({ [event.target.name]: event.target.value });
+    event.preventDefault();
+    const { name, value } = event.target;
+    let isError = { ...this.state.isError };
+
+    switch (name) {
+      case 'email':
+        isError.email = validEmailRegex.test(value) ? '' : 'Invalid email';
+        break;
+      case 'password':
+        isError.password =
+          value.length < 8 ? 'Must contain at least 8 characters' : '';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ isError, [name]: value });
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
+
+    if (formValid(this.state)) {
+      console.info(this.state);
+      // console.info('Valid form');
+    } else {
+      console.error('Invalid form');
+    }
 
     const userData = {
       email: this.state.email,
@@ -45,6 +96,7 @@ class Login extends React.Component {
   };
 
   render() {
+    const { isError } = this.state;
     if (this.state.isLoggedIn === true) {
       return <Redirect to="/todos" />;
     }
@@ -59,7 +111,11 @@ class Login extends React.Component {
                 <HiMail />
               </i>
               <input
-                className="form-control"
+                className={
+                  isError.email.length > 0
+                    ? 'form-control error'
+                    : 'form-control'
+                }
                 type="email"
                 name="email"
                 value={this.state.email}
@@ -67,6 +123,9 @@ class Login extends React.Component {
                 placeholder="Email"
                 required
               />
+              {isError.email.length > 0 && (
+                <small className="error-msg">{isError.email}</small>
+              )}
             </div>
           </div>
           <div className="form-group">
@@ -76,7 +135,11 @@ class Login extends React.Component {
                 <HiLockOpen />
               </i>
               <input
-                className="form-control"
+                className={
+                  isError.password.length > 0
+                    ? 'form-control error'
+                    : 'form-control'
+                }
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -84,6 +147,9 @@ class Login extends React.Component {
                 placeholder="Password"
                 required
               />
+              {isError.password.length > 0 && (
+                <small className="error-msg">{isError.password}</small>
+              )}
             </div>
           </div>
           <button type="submit" className="btn" onClick={this.handleFormSubmit}>

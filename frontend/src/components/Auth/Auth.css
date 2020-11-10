@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
   transition: all .25s ease-in-out;
 }
 
@@ -50,12 +50,12 @@
 }
 
 /* Form inputs */
-.form-group .form-control {
+.form-control {
   box-sizing: border-box;
   width: 100%;
   padding-left: 2.8rem;
   height: 2.8rem;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-family: inherit;
   border-top: 0;
   border-left: 0;
@@ -65,11 +65,25 @@
   transition: all .15s ease-in-out;
 }
 
-.form-group .form-control:focus {
+.form-control:focus {
   outline: none;
   border-color: var(--dark-color);
 }
 
-.form-group .form-control:focus::placeholder {
+.form-control:focus::placeholder {
   color: var(--dark-color);
+}
+
+/* Validation errors */
+.error {
+  border-color: var(--danger-color) !important;
+}
+
+.error-msg {
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: .2rem 0 0 .5rem;
+  color: var(--danger-color);
 }

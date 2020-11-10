@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/acyein/todo-app/issues"
   },
-  "homepage": "https://github.com/acyein/todo-app#readme",
+  "homepage": "http://128.199.130.30/todo-app/",
   "devDependencies": {
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6"
