@@ -6,6 +6,7 @@ import './Auth.css';
 import Login from '../components/Auth/Login';
 import Signup from '../components/Auth/Signup';
 import RightSide from '../components/Auth/RightSide';
+// import logo from '../../public/logo.svg';
 
 export class Auth extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ export class Auth extends React.Component {
         <nav className="navbar">
           <div className="navbar-header">
             <Link to="/todos" className="navbar-brand nav-link">
-              <img className="logo" src="/logo.svg" alt="logo" />
+              <img className="logo" src={`${process.env.PUBLIC_URL}/logo.svg`} alt="logo" />
               Tick Me
             </Link>
           </div>

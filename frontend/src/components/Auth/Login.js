@@ -1,34 +1,10 @@
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-// import instance from '../../axios';
+import { HiMail, HiLockOpen } from 'react-icons/hi';
+import instance from '../../axios';
 
 import './Auth.css';
-import { HiMail, HiLockOpen } from 'react-icons/hi';
-
-const validEmailRegex = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
-
-const formValid = ({ isError, ...rest }) => {
-  let isValid = false;
-
-  Object.values(isError).forEach(value => {
-    if (value.length > 0) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-  });
-
-  Object.values(rest).forEach(value => {
-    if (value === null) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-  });
-
-  console.log(isValid);
-  return isValid;
-};
+import { validEmailRegex, formValid } from '../FormValidity';
 
 class Login extends React.Component {
   constructor(props) {
@@ -86,7 +62,7 @@ class Login extends React.Component {
         if (res.status === 200) {
           this.props.history.push('/login');
           this.setState({ isLoggedIn: true });
-          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('token', res.data.token);
           console.log(res.config.headers);
         }
       })
@@ -156,7 +132,10 @@ class Login extends React.Component {
             Login
           </button>
         </form>
-        <img src="/undraw_enter_uhqk.svg" alt="illustration" />
+        <img
+          src={`${process.env.PUBLIC_URL}/undraw_enter_uhqk.svg`}
+          alt="illustration"
+        />
       </div>
     );
   }

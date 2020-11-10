@@ -65,7 +65,7 @@ export function Todo() {
       <nav className="navbar">
         <div className="navbar-header">
           <Link to="/todos" className="navbar-brand nav-link">
-            <img className="logo" src="/logo.svg" alt="logo" />
+            <img className="logo" src={`${process.env.PUBLIC_URL}/logo.svg`} alt="logo" />
             Tick Me
           </Link>
         </div>

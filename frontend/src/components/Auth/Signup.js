@@ -1,34 +1,10 @@
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-// import instance from '../../axios';
+import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
+import instance from '../../axios';
 
 import './Auth.css';
-import { HiUser, HiMail, HiLockOpen } from 'react-icons/hi';
-
-const validEmailRegex = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
-
-const formValid = ({ isError, ...rest }) => {
-  let isValid = false;
-
-  Object.values(isError).forEach(value => {
-    if (value.length > 0) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-  });
-
-  Object.values(rest).forEach(value => {
-    if (value === null) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-  });
-
-  console.log(isValid);
-  return isValid;
-};
+import { validEmailRegex, formValid } from '../FormValidity';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -114,7 +90,10 @@ class Signup extends React.Component {
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <img src="/undraw_dreamer_gxxi.svg" alt="illustration" />
+        <img
+          src={`${process.env.PUBLIC_URL}/undraw_dreamer_gxxi.svg`}
+          alt="illustration"
+        />
 
         <form className="auth-form" onSubmit={this.handleFormSubmit}>
           <h1 className="auth-heading">Sign Up</h1>
