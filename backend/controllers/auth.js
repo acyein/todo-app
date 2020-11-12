@@ -26,8 +26,7 @@ exports.signupUser = async (req, res) => {
   });
   try {
     const savedUser = await newUser.save();
-    // res.send(savedUser);
-    console.log(savedUser);
+    // console.log(savedUser);
     res.json({
       message: `Succcessful signup! Welcome, ${savedUser.firstName}`,
       user: savedUser,
@@ -52,15 +51,20 @@ exports.loginUser = async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send('Incorrect password');
 
-  // Create and assign a token
-  const token = jwt.sign(
-    { userId: user._id.toString() },
-    process.env.TOKEN_SECRET,
-    { expiresIn: 60 * 60 * 24 }
-  ); // Expires in 24 hours
-  res.header('Authorization', token).status(200).json({
-    message: 'Sucessful login! Welcome back',
-    user,
-    token,
-  });
+  try {
+    // Create and assign a token
+    const token = jwt.sign(
+      { userId: user._id.toString() },
+      process.env.TOKEN_SECRET,
+      { expiresIn: 60 * 60 * 24 }
+    ); // Expires in 24 hours
+    res.header('Authorization', token).status(200).json({
+      message: 'Sucessful login! Welcome back',
+      user,
+      token,
+    });
+  } catch(err) {
+    res.status(400).send(err);
+  }
+  
 };

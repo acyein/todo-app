@@ -1,8 +1,6 @@
 const Todo = require('../models/Todo');
 const User = require('../models/User');
 
-// Populate users collection
-
 // Get all todos created by a user
 exports.getTodos = async (req, res) => {
   const userId = req.userId;
@@ -21,6 +19,7 @@ exports.getTodos = async (req, res) => {
   }
 };
 
+// Create a todo
 exports.createTodo = async (req, res) => {
   const userId = req.userId;
   // Create a new todo
@@ -29,6 +28,7 @@ exports.createTodo = async (req, res) => {
     subject: req.body.subject,
     description: req.body.description,
     deadline: req.body.deadline,
+    createdAt: new Date(),
     // status = req.body.status
   });
   try {

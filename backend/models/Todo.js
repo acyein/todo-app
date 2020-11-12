@@ -7,26 +7,30 @@ const todoSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    // required: true,
+    required: true,
   },
   subject: {
     type: String,
-    // required: true,
+    required: true,
     maxlength: 100,
   },
   description: {
     type: String,
-    // required: true,
+    required: true,
     maxlength: 255,
   },
   deadline: {
     type: Date,
-    // required: true,
+    required: true,
   },
   status: {
     type: Boolean,
     // required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 module.exports = mongoose.model('Todo', todoSchema);
