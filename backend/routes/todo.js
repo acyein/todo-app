@@ -5,7 +5,7 @@ const { verifyToken } = require('../middleware/verifyToken');
 
 const todoController = require('../controllers/todo');
 
-router.get('/', verifyToken, todoController.getTodo);
+router.get('/', verifyToken, todoController.getTodos);
 router.post('/create', verifyToken, todoController.createTodo);
 router.delete('/:todoId/completed', verifyToken, todoController.deleteTodo);
 

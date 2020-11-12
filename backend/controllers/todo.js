@@ -1,26 +1,20 @@
-const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcryptjs');
 const Todo = require('../models/Todo');
 const User = require('../models/User');
 
-function generateAccessToken(userId) {
-  return jwt.sign(userId, process.env.TOKEN_SECRET);
-}
+// Populate users collection
 
-// Get todos
-exports.getTodo = async (req, res) => {
+// Get all todos created by a user
+exports.getTodos = async (req, res) => {
+  const userId = req.userId;
   try {
-    const todos = await Todo.find();
-    if (!todos) return res.status(400).send('Cannot find todos');
+    // Find all todos created by the user
+    // Populate createdBy property for each todo, display firstName and lastName
+    const todos = await Todo.find({ userId: userId });
+    // .populate('userId');
 
-    // await newTodo.populate('user') // Specify path and ...
-    // .execPopulate(function (err, todo) {
-    //   if (err) return handleError(err);
-    //   console.log(todo);
-    // });
-
+    // Display an array of todos
     res.json({
-      todos: todos,
+      todos,
     });
   } catch (err) {
     console.log(err);
@@ -28,32 +22,48 @@ exports.getTodo = async (req, res) => {
 };
 
 exports.createTodo = async (req, res) => {
+  const userId = req.userId;
+  // Create a new todo
   const newTodo = new Todo({
+    userId: userId,
     subject: req.body.subject,
     description: req.body.description,
     deadline: req.body.deadline,
     // status = req.body.status
   });
   try {
-    // const user = req.user;
+    // Validate user's input
+
+    // Find user by id
+    const user = await User.findById(userId, 'todos');
     // Push newTodo to todos array in users collection
+    user.todos.push(newTodo);
 
-    // Save to db
-    const savedTodo = await newTodo.save();
+    // Save to todos collection
+    await newTodo.save();
+    // Save to user document
+    await user.save();
 
+    // Display result
     res.json({
       message: 'Added a todo',
-      todo: savedTodo,
+      todo: newTodo,
     });
   } catch (err) {
     console.log(err);
   }
 };
 
-// Delete todos
+// Delete a todo
 exports.deleteTodo = async (req, res) => {
+  const userId = req.userId;
   try {
+    // In todos collection, find the todo by the id specified in params
     const todo = await Todo.findByIdAndDelete(req.params.todoId);
+
+    // In users collection, find userId
+    // const user = await User.findById(userId);
+
     res.json({
       message: 'Removed a todo',
     });
