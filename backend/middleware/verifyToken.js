@@ -19,29 +19,10 @@ exports.verifyToken = (req, res, next) => {
     res.status(500).json(err);
   }
   if (!decodedToken) {
-    const error = new Error('Cannot verify token');
-    error.statusCode = 401;
-    throw error;
+    res.status(401).json({ error: 'Cannot verify token'});
   }
   // Lets server know user is logged in with this id
   req.userId = decodedToken.userId;
   console.log(`userId is ${req.userId}`);
   next();
 };
-
-
-// jwt.verify(token, process.env.TOKEN_SECRET, (err, result) => {
-  //   if (err) {
-  //     return res.status(401).json({
-  //       error: true,
-  //       message: 'Invalid user',
-  //     });
-  //   } else {
-  //     // console.log(result);
-  //     const user = User.findById(result._id);
-  //     if (user) {
-  //       req.user = user;
-  //       next();
-  //     }
-  //   }
-  // });

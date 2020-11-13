@@ -1,5 +1,5 @@
 import React from 'react';
-// import instance from '../../axios';
+import instance from '../../axios';
 
 const Form = ({
   subject,
@@ -53,19 +53,20 @@ const Form = ({
       },
     ]);
 
-    // instance
-    //   .post('/todos/create', {
-    //     subject: subject,
-    //     description: description,
-    //     deadline: deadline,
-    //   })
-    //   .then(res => {
-    //     console.log(res, setTodos());
-    //     // setTodos(res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    // POST - create a todo
+    instance
+      .post('/todos/create', {
+        subject: subject,
+        description: description,
+        deadline: deadline,
+      })
+      // .then(res => {
+      //   console.log(res, setTodos());
+      //   // setTodos(res.data);
+      // })
+      .catch(err => {
+        console.log(err);
+      });
 
     // Make fields empty
     setSubject('');

@@ -29,6 +29,7 @@ class Signup extends React.Component {
     const { name, value } = event.target;
     let isError = { ...this.state.isError };
 
+    // Error messages for invalid input values
     switch (name) {
       case 'firstName':
         isError.firstName =
@@ -53,15 +54,15 @@ class Signup extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
 
+    // Set validity of signup form
     if (formValid(this.state)) {
       console.info(this.state);
-      // console.info('Valid form');
     } else {
       console.error('Invalid form');
     }
 
+    // User's input to be passed in POST request (properties have to match those defined in backend)
     const userData = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -69,6 +70,7 @@ class Signup extends React.Component {
       password: this.state.password,
     };
 
+    // POST request
     instance
       .post('/signup', userData)
       .then(res => {
@@ -193,11 +195,9 @@ class Signup extends React.Component {
               )}
             </div>
           </div>
-          {/* <Link to="/todo"> */}
           <button type="submit" className="btn" onClick={this.handleFormSubmit}>
             Sign Up
           </button>
-          {/* </Link> */}
         </form>
       </div>
     );

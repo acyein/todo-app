@@ -5,37 +5,39 @@ const User = require('../models/User');
 exports.getTodos = async (req, res) => {
   const userId = req.userId;
   try {
-    // Find all todos created by the user
-    // Populate createdBy property for each todo, display firstName and lastName
+    // Find all todos that match the userId
     const todos = await Todo.find({ userId: userId });
-    // .populate('userId');
 
     // Display an array of todos
     res.json({
       todos,
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err);
   }
 };
 
 // Create a todo
 exports.createTodo = async (req, res) => {
   const userId = req.userId;
+  const subject = req.body.subject;
+  const description = req.body.description;
+  const deadline = req.body.deadline;
   // Create a new todo
   const newTodo = new Todo({
     userId: userId,
-    subject: req.body.subject,
-    description: req.body.description,
-    deadline: req.body.deadline,
+    subject: subject,
+    description: description,
+    deadline: deadline,
     createdAt: new Date(),
     // status = req.body.status
   });
   try {
     // Validate user's input
 
-    // Find user by id
+    // Get todos array from users collection
     const user = await User.findById(userId, 'todos');
+
     // Push newTodo to todos array in users collection
     user.todos.push(newTodo);
 
@@ -50,27 +52,35 @@ exports.createTodo = async (req, res) => {
       todo: newTodo,
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err);
   }
 };
 
 // Delete a todo
 exports.deleteTodo = async (req, res) => {
   const userId = req.userId;
+  const todoId = req.params.todoId;
   try {
-    // In todos collection, find the todo by the id specified in params
-    const todo = await Todo.findByIdAndDelete(req.params.todoId);
+    // Check if todoId and userId match
+    const match = await Todo.exists({ _id: todoId, userId: userId});
+    if (!match) return res.status(400).send('Todo does not exist / is not created by you');
 
-    // In users collection, find userId
-    // const user = await User.findById(userId);
+    // Get todos array from users collection
+    const user = await User.findById(userId, 'todos');
 
+    // Pull todoId out of todos array
+    user.todos.pull(todoId);
+
+    // Remove from todos collection
+    await Todo.findByIdAndDelete(todoId);
+    // Remove from user document
+    await user.save();
+
+    // Display message
     res.json({
-      message: 'Removed a todo',
+      message: 'Todo removed',
     });
   } catch (err) {
-    res.json({
-      message: 'Unable to find the todo',
-      error: err,
-    });
+    res.status(500).send(err);
   }
 };

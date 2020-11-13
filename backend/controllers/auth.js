@@ -7,11 +7,19 @@ const { signupValidation, loginValidation } = require('../models/validation');
 exports.signupUser = async (req, res) => {
   // Validate user input before creating user
   const { error } = signupValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) {
+    res.status(422).json({
+      message: error.details[0].message,
+    });
+  }
 
   // Check if user is already in DB
   const emailExist = await User.findOne({ email: req.body.email });
-  if (emailExist) return res.status(400).send('Email already exists');
+  if (emailExist) {
+    res.status(400).json({
+      message: 'Email already exists',
+    });
+  }
 
   // Hash password
   const salt = await bcrypt.genSalt(10); // 10 rounds
@@ -32,7 +40,7 @@ exports.signupUser = async (req, res) => {
       user: savedUser,
     });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(500).send(err);
   }
 };
 
@@ -40,16 +48,28 @@ exports.signupUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   // Validate user input before logging in user
   const { error } = loginValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) {
+    res.status(422).json({
+      message: error.details[0].message,
+    });
+  }
 
   // Check if user is already in DB
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send('Email not found');
+  if (!user) {
+    res.status(401).json({
+      message: 'Email not found',
+    });
+  }
 
   // Check if password is correct
   // Compare pw from input and hashed pw from db
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send('Incorrect password');
+  if (!validPassword) {
+    res.status(401).json({
+      message: 'Incorrect password',
+    });
+  }
 
   try {
     // Create and assign a token
@@ -63,8 +83,7 @@ exports.loginUser = async (req, res) => {
       user,
       token,
     });
-  } catch(err) {
-    res.status(400).send(err);
+  } catch (err) {
+    res.status(500).send(err);
   }
-  
 };

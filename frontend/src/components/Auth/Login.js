@@ -25,6 +25,7 @@ class Login extends React.Component {
     const { name, value } = event.target;
     let isError = { ...this.state.isError };
 
+    // Error messages for invalid input values
     switch (name) {
       case 'email':
         isError.email = validEmailRegex.test(value) ? '' : 'Invalid email';
@@ -42,8 +43,8 @@ class Login extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
 
+    // Set validity of login form
     if (formValid(this.state)) {
       console.info(this.state);
       // console.info('Valid form');
@@ -51,11 +52,13 @@ class Login extends React.Component {
       console.error('Invalid form');
     }
 
+    // User's input to be passed in POST request (properties have to match those defined in backend)
     const userData = {
       email: this.state.email,
       password: this.state.password,
     };
 
+    // POST request
     instance
       .post('/login', userData)
       .then(res => {

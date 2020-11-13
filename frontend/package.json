@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://128.199.130.30/todo-app",
+  "homepage": "http://128.199.130.30:3000/",
   "eslintConfig": {
     "extends": [
       "react-app",
