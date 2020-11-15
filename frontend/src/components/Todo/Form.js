@@ -1,4 +1,5 @@
 import React from 'react';
+
 import instance from '../../axios';
 
 const Form = ({
@@ -60,15 +61,14 @@ const Form = ({
         description: description,
         deadline: deadline,
       })
-      // .then(res => {
-      //   console.log(res, setTodos());
-      //   // setTodos(res.data);
-      // })
+      .then(res => {
+        console.log(res.data);
+        // Make fields empty
+      })
       .catch(err => {
         console.log(err);
       });
-
-    // Make fields empty
+      
     setSubject('');
     setDescription('');
     setDeadline('');
@@ -116,7 +116,7 @@ const Form = ({
         Add
         <i className="fas fa-plus plus-btn"></i>
       </button>
-      
+
       {/* Show search and filter bars after form is submitted */}
       {showSearchFilter ? (
         <div className="todo-form-group search-filter-container">
@@ -133,7 +133,7 @@ const Form = ({
               name="todos"
               className="filter-todo"
             >
-              <option value="">Show</option>
+              <option value="">Filter By</option>
               <option value="all">All</option>
               <option value="completed">Completed</option>
               <option value="uncompleted">Uncompleted</option>

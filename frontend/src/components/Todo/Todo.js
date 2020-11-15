@@ -1,10 +1,21 @@
 import React from 'react';
 
+// import instance from '../../axios';
+
 const Todo = ({ subject, description, deadline, todo, todos, setTodos }) => {
   //events
   const deleteHandler = () => {
     setTodos(todos.filter(el => el.id !== todo.id));
-    // console.log(todo);
+
+    // DELETE - remove a todo
+    // instance
+    //   .delete(`/todos/${todoId}/completed`)
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 
   const completeHandler = () => {
@@ -27,7 +38,9 @@ const Todo = ({ subject, description, deadline, todo, todos, setTodos }) => {
         <span className={`todo-subject ${todo.completed ? 'completed' : ''}`}>
           {subject}
         </span>
-        <span className={`todo-description ${todo.completed ? 'completed' : ''}`}>
+        <span
+          className={`todo-description ${todo.completed ? 'completed' : ''}`}
+        >
           {description}
         </span>
         <span className={`todo-deadline ${todo.completed ? 'completed' : ''}`}>

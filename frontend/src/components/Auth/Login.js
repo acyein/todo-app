@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { HiMail, HiLockOpen } from 'react-icons/hi';
-import instance from '../../axios';
 
+import instance from '../../axios';
 import './Auth.css';
 import { validEmailRegex, formValid } from '../FormValidity';
 

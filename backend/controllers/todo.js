@@ -13,7 +13,7 @@ exports.getTodos = async (req, res) => {
       todos,
     });
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
 };
 
@@ -52,7 +52,7 @@ exports.createTodo = async (req, res) => {
       todo: newTodo,
     });
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
 };
 
@@ -62,8 +62,11 @@ exports.deleteTodo = async (req, res) => {
   const todoId = req.params.todoId;
   try {
     // Check if todoId and userId match
-    const match = await Todo.exists({ _id: todoId, userId: userId});
-    if (!match) return res.status(400).send('Todo does not exist / is not created by you');
+    const match = await Todo.exists({ _id: todoId, userId: userId });
+    if (!match)
+      return res
+        .status(400)
+        .send('Todo does not exist / is not created by you');
 
     // Get todos array from users collection
     const user = await User.findById(userId, 'todos');
@@ -81,6 +84,6 @@ exports.deleteTodo = async (req, res) => {
       message: 'Todo removed',
     });
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
 };

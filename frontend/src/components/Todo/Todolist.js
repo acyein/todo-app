@@ -1,8 +1,7 @@
 import React from 'react';
 // import React, { useEffect } from 'react';
-// import instance from '../../axios';
 
-//import components
+// import instance from '../../axios';
 import Todo from './Todo';
 
 const TodoList = ({ todos, setTodos, filteredTodos }) => {
@@ -10,10 +9,10 @@ const TodoList = ({ todos, setTodos, filteredTodos }) => {
   // useEffect(() => {
   //   instance
   //     .get('/todos')
-  //     .then(res => {
-  //       console.log(res);
-  //       // setTodos(res.data);
-  //     })
+  //     // .then(res => {
+  //     //   console.log(res);
+  //     //   // setTodos(res.data);
+  //     // })
   //     .catch(err => {
   //       console.log(err);
   //     });
